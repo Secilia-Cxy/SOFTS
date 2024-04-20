@@ -10,19 +10,19 @@ SOFTS not only achieves superior performance over existing state-of-the-art meth
 
 #### Main Structure
 
-![structure](imgs\structure.png)
+![structure](imgs/structure.png)
 
 #### Star Aggregate Dispatch Module (STAD)
 
-![STAD](imgs\STAD.png)
+![STAD](imgs/STAD.png)
 
 #### Performance Comparison
 
-![performance](imgs\performance.png)
+![performance](imgs/performance.png)
 
 #### Efficiency Comparison
 
-![efficiency](imgs\efficiency.png)
+![efficiency](imgs/efficiency.png)
 
 ## Prerequisites
 
