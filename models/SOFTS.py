@@ -10,7 +10,7 @@ class STAD(nn.Module):
     def __init__(self, d_series, d_core):
         super(STAD, self).__init__()
         """
-        Star Aggregate Dispatch Module
+        STar Aggregate Dispatch Module
         """
 
         self.gen1 = nn.Linear(d_series, d_series)
@@ -48,9 +48,6 @@ class STAD(nn.Module):
 
 
 class Model(nn.Module):
-    """
-    Paper link: https://arxiv.org/abs/2310.06625
-    """
 
     def __init__(self, configs):
         super(Model, self).__init__()
@@ -62,6 +59,7 @@ class Model(nn.Module):
         self.enc_embedding = DataEmbedding_inverted(configs.seq_len, configs.d_model, configs.embed, configs.freq,
                                                     configs.dropout)
         self.use_norm = configs.use_norm
+        # Encoder
         self.encoder = Encoder(
             [
                 EncoderLayer(
