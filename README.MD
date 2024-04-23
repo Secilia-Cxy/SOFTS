@@ -1,6 +1,6 @@
 # SOFTS: Efficient Multivariate Time Series Forecasting with Series-Core Fusion
 
-The code repository for "SOFTS: Efficient Multivariate Time Series Forecasting with Series-Core Fusion" in PyTorch.
+The code repository for [SOFTS: Efficient Multivariate Time Series Forecasting with Series-Core Fusion](https://arxiv.org/pdf/2404.14197.pdf) in PyTorch.
 
 ### Main Structure
 
