@@ -55,3 +55,16 @@ https://github.com/laiguokun/multivariate-time-series-data
 https://github.com/thuml/Time-Series-Library
 
 https://github.com/thuml/iTransformer
+
+## Reference
+
+If you find our work useful in your research, please use the following citation:
+
+```
+@article{han2024softs,
+  title={SOFTS: Efficient Multivariate Time Series Forecasting with Series-Core Fusion},
+  author={Han, Lu and Chen, Xu-Yang and Ye, Han-Jia and Zhan, De-Chuan},
+  journal={arXiv preprint arXiv:2404.14197},
+  year={2024}
+}
+```
