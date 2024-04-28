@@ -23,7 +23,7 @@ python -u run.py \
   --train_epochs 30 \
   --patience 3 \
   --use_norm 1 \
-  --itr 1 \
+  --itr 1
 
 python -u run.py \
   --is_training 1 \
@@ -48,7 +48,7 @@ python -u run.py \
   --train_epochs 30 \
   --patience 3 \
   --use_norm 1 \
-  --itr 1 \
+  --itr 1
 
 python -u run.py \
   --is_training 1 \
@@ -74,7 +74,7 @@ python -u run.py \
   --train_epochs 30 \
   --patience 3 \
   --use_norm 1 \
-  --itr 1 \
+  --itr 1
 
 python -u run.py \
   --is_training 1 \
@@ -100,4 +100,4 @@ python -u run.py \
   --train_epochs 30 \
   --patience 3 \
   --use_norm 0 \
-  --itr 1 \
+  --itr 1
