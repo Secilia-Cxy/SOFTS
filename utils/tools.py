@@ -1,15 +1,7 @@
-import os
+import math
 
 import numpy as np
 import torch
-import matplotlib.pyplot as plt
-import pandas as pd
-from collections import defaultdict
-import math
-import torch.nn as nn
-
-
-plt.switch_backend('agg')
 
 
 class AverageMeter:
@@ -32,15 +24,8 @@ class AverageMeter:
         self.count += n
         self.avg = self.sum / self.count
 
-def adjust_learning_rate(optimizer, epoch, args, scheduler=None):
-    # lr = args.learning_rate * (0.2 ** (epoch // 2))
-    if args.lradj == "onecycle":
-        scheduler.step()
-        lr = scheduler.get_last_lr()[0]
-        for param_group in optimizer.param_groups:
-            param_group['lr'] = lr
-        # print('Updating learning rate to {}'.format(lr))
-        return
+
+def adjust_learning_rate(optimizer, epoch, args):
     if args.lradj == 'type1':
         lr_adjust = {epoch: args.learning_rate * (0.5 ** ((epoch - 1) // 1))}
     elif args.lradj == 'type2':
@@ -89,62 +74,3 @@ class EarlyStopping:
             print(f'Validation loss decreased ({self.val_loss_min:.6f} --> {val_loss:.6f}).  Saving model ...')
         torch.save(model.state_dict(), path + '/' + 'checkpoint.pth')
         self.val_loss_min = val_loss
-
-
-class dotdict(dict):
-    """dot.notation access to dictionary attributes"""
-    __getattr__ = dict.get
-    __setattr__ = dict.__setitem__
-    __delattr__ = dict.__delitem__
-
-
-class StandardScaler():
-    def __init__(self, mean, std):
-        self.mean = mean
-        self.std = std
-
-    def transform(self, data):
-        return (data - self.mean) / self.std
-
-    def inverse_transform(self, data):
-        return (data * self.std) + self.mean
-
-
-def visual(true, preds=None, name='./pic/test.pdf'):
-    """
-    Results visualization
-    """
-    plt.figure()
-    plt.plot(true, label='GroundTruth', linewidth=2)
-    if preds is not None:
-        plt.plot(preds, label='Prediction', linewidth=2)
-    plt.legend()
-    plt.savefig(name, bbox_inches='tight')
-
-
-def adjustment(gt, pred):
-    anomaly_state = False
-    for i in range(len(gt)):
-        if gt[i] == 1 and pred[i] == 1 and not anomaly_state:
-            anomaly_state = True
-            for j in range(i, 0, -1):
-                if gt[j] == 0:
-                    break
-                else:
-                    if pred[j] == 0:
-                        pred[j] = 1
-            for j in range(i, len(gt)):
-                if gt[j] == 0:
-                    break
-                else:
-                    if pred[j] == 0:
-                        pred[j] = 1
-        elif gt[i] == 0:
-            anomaly_state = False
-        if anomaly_state:
-            pred[i] = 1
-    return gt, pred
-
-
-def cal_accuracy(y_pred, y_true):
-    return np.mean(y_pred == y_true)

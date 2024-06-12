@@ -6,9 +6,9 @@ The code repository for [SOFTS: Efficient Multivariate Time Series Forecasting w
 
 ![structure](imgs/structure.png)
 
-#### Star Aggregate Dispatch Module (STAD)
+#### Star Aggregate-Redistribute Module (STAR)
 
-![STAD](imgs/STAD.png)
+![STAR](imgs/STAR.png)
 
 #### Performance Comparison
 

@@ -6,11 +6,11 @@ from layers.Embed import DataEmbedding_inverted
 from layers.Transformer_EncDec import Encoder, EncoderLayer
 
 
-class STAD(nn.Module):
+class STAR(nn.Module):
     def __init__(self, d_series, d_core):
-        super(STAD, self).__init__()
+        super(STAR, self).__init__()
         """
-        STar Aggregate Dispatch Module
+        STar Aggregate-Redistribute Module
         """
 
         self.gen1 = nn.Linear(d_series, d_series)
@@ -63,7 +63,7 @@ class Model(nn.Module):
         self.encoder = Encoder(
             [
                 EncoderLayer(
-                    STAD(configs.d_model, configs.d_core),
+                    STAR(configs.d_model, configs.d_core),
                     configs.d_model,
                     configs.d_ff,
                     dropout=configs.dropout,

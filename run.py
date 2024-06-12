@@ -1,10 +1,10 @@
 import argparse
-import os
-import torch
-from exp.exp_long_term_forecasting import Exp_Long_Term_Forecast
 import random
+
 import numpy as np
-import json
+import torch
+
+from exp.exp_long_term_forecasting import Exp_Long_Term_Forecast
 
 fix_seed = 2021
 random.seed(fix_seed)
@@ -34,21 +34,12 @@ parser.add_argument('--seq_len', type=int, default=96, help='input sequence leng
 parser.add_argument('--label_len', type=int, default=48, help='start token length')
 parser.add_argument('--pred_len', type=int, default=96, help='prediction sequence length')
 parser.add_argument('--seasonal_patterns', type=str, default='Monthly', help='subset for M4')
-# imputation task
-parser.add_argument('--mask_rate', type=float, default=0.25, help='mask ratio')
-# anomaly detection task
-parser.add_argument('--anomaly_ratio', type=float, default=0.25, help='prior anomaly ratio (%)')
 # model define
-parser.add_argument('--top_k', type=int, default=5, help='for TimesBlock')
-parser.add_argument('--num_kernels', type=int, default=6, help='for Inception')
-parser.add_argument('--res_kernels', nargs="+", type=int, default=(1, 3, 7, 17, 25, 47),
-                    help='for Inception')
 parser.add_argument('--enc_in', type=int, default=7, help='encoder input size')
 parser.add_argument('--dec_in', type=int, default=7, help='decoder input size')
 parser.add_argument('--c_out', type=int, default=7, help='output size')
 parser.add_argument('--d_model', type=int, default=512, help='dimension of model')
 parser.add_argument('--d_core', type=int, default=512, help='dimension of core')
-parser.add_argument('--n_heads', type=int, default=8, help='num of heads')
 parser.add_argument('--e_layers', type=int, default=2, help='num of encoder layers')
 parser.add_argument('--d_layers', type=int, default=1, help='num of decoder layers')
 parser.add_argument('--d_ff', type=int, default=2048, help='dimension of fcn')
@@ -98,36 +89,7 @@ Exp = Exp_Long_Term_Forecast
 
 
 def train(args=args):
-   setting = '{}_{}_{}_{}_ft{}_sl{}_ll{}_pl{}_dm{}_nh{}_el{}_dl{}_df{}_fc{}_eb{}_dt{}_{}'.format(
-       args.task_name,
-       args.model_id,
-       args.model,
-       args.data,
-       args.features,
-       args.seq_len,
-       args.label_len,
-       args.pred_len,
-       args.d_model,
-       args.n_heads,
-       args.e_layers,
-       args.d_layers,
-       args.d_ff,
-       args.factor,
-       args.embed,
-       args.distil,
-       args.des)
-   exp = Exp(args)  # set experiments
-   print('>>>>>>>start training : {}>>>>>>>>>>>>>>>>>>>>>>>>>>'.format(setting))
-   exp.train(setting)
-   print('>>>>>>>testing : {}<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'.format(setting))
-   exp.test(setting)
-   torch.cuda.empty_cache()
-
-
-if args.is_training:
-    train(args)
-else:
-    setting = '{}_{}_{}_{}_ft{}_sl{}_ll{}_pl{}_dm{}_nh{}_el{}_dl{}_df{}_fc{}_eb{}_dt{}_{}'.format(
+    setting = '{}_{}_{}_{}_ft{}_sl{}_ll{}_pl{}_dm{}_el{}_dl{}_df{}_fc{}_eb{}_dt{}_{}'.format(
         args.task_name,
         args.model_id,
         args.model,
@@ -137,7 +99,34 @@ else:
         args.label_len,
         args.pred_len,
         args.d_model,
-        args.n_heads,
+        args.e_layers,
+        args.d_layers,
+        args.d_ff,
+        args.factor,
+        args.embed,
+        args.distil,
+        args.des)
+    exp = Exp(args)  # set experiments
+    print('>>>>>>>start training : {}>>>>>>>>>>>>>>>>>>>>>>>>>>'.format(setting))
+    exp.train(setting)
+    print('>>>>>>>testing : {}<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'.format(setting))
+    exp.test(setting)
+    torch.cuda.empty_cache()
+
+
+if args.is_training:
+    train(args)
+else:
+    setting = '{}_{}_{}_{}_ft{}_sl{}_ll{}_pl{}_dm{}_el{}_dl{}_df{}_fc{}_eb{}_dt{}_{}'.format(
+        args.task_name,
+        args.model_id,
+        args.model,
+        args.data,
+        args.features,
+        args.seq_len,
+        args.label_len,
+        args.pred_len,
+        args.d_model,
         args.e_layers,
         args.d_layers,
         args.d_ff,
