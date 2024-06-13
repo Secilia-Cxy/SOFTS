@@ -34,8 +34,9 @@ You can directly download the datasets used in the paper from [Google Drive](htt
 
 Once downloaded, place the datasets under folder `dataset/`, like `dataset/ETT-small`, `dataset/traffic`, etc.
 
-## Custom Datasets
+## Run on your own dataset
 
+### Choice 1: Use scripts to run
 If you wish to utilize your own datasets, please follow these steps:
 
 1. **Dataset Format**: Make sure your datasets follow the format of the provided datasets. Typically, the first column should contain dates, and the remaining columns should represent variables to predict. This consistency will help seamlessly integrate your datasets into the existing infrastructure.
@@ -50,6 +51,9 @@ If you wish to utilize your own datasets, please follow these steps:
    - The `--data_path` parameter should specify the file name of your dataset.
 
 Refer to the examples in `scripts/long_term_forecast` for guidance on how to integrate your custom dataset into the existing scripts.
+
+### Choice 2: Use the provided API
+We have provided a custom exp class in `exp/exp_custom.py` and a guidance Jupyter notebook `run_on_your_own_dataset.ipynb` to help you run the model on your own dataset.
 
 ## Scripts
 
