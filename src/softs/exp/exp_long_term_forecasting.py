@@ -1,6 +1,6 @@
-from data_provider.data_factory import data_provider
-from exp.exp_basic import Exp_Basic
-from utils.tools import EarlyStopping, adjust_learning_rate, AverageMeter
+from softs.data_provider.data_factory import data_provider
+from softs.exp.exp_basic import Exp_Basic
+from softs.utils.tools import EarlyStopping, adjust_learning_rate, AverageMeter
 import torch
 import torch.nn as nn
 from torch import optim

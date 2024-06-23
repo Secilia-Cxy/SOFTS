@@ -9,9 +9,9 @@ import torch.nn as nn
 from torch import optim
 from torch.utils.data import DataLoader, Dataset
 
-from exp.exp_basic import Exp_Basic
-from utils.timefeatures import time_features
-from utils.tools import EarlyStopping, adjust_learning_rate, AverageMeter
+from softs.exp.exp_basic import Exp_Basic
+from softs.utils.timefeatures import time_features
+from softs.utils.tools import EarlyStopping, adjust_learning_rate, AverageMeter
 
 warnings.filterwarnings('ignore')
 

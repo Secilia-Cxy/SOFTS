@@ -2,8 +2,8 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from layers.Embed import DataEmbedding_inverted
-from layers.Transformer_EncDec import Encoder, EncoderLayer
+from softs.layers.Embed import DataEmbedding_inverted
+from softs.layers.Transformer_EncDec import Encoder, EncoderLayer
 
 
 class STAR(nn.Module):

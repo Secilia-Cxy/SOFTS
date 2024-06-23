@@ -158,3 +158,6 @@ data_loader_all.py
 /utils/self_tools.py
 /scripts/exp_scripts/
 .idea/deployment.xml
+
+# Model Checkpoints
+*.pth
