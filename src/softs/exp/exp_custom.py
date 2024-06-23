@@ -70,6 +70,8 @@ class Dataset_Custom(Dataset):
 class Exp_Custom(Exp_Basic):
     def __init__(self, args):
         super(Exp_Custom, self).__init__(args)
+        # Loss Function
+        self.loss_func = getattr(args, "loss_func", "mse")
 
     def _build_model(self):
         model = self.model_dict[self.args.model].Model(self.args).float()
@@ -110,8 +112,13 @@ class Exp_Custom(Exp_Basic):
         return model_optim
 
     def _select_criterion(self):
-        criterion = nn.MSELoss()
-        return criterion
+        match self.loss_func:
+            case "mse":
+                return nn.MSELoss()
+            case "mae":
+                return nn.L1Loss()
+            case "huber":
+                return nn.HuberLoss()
 
     def vali(self, vali_loader, criterion):
         total_loss = AverageMeter()
@@ -220,8 +227,10 @@ class Exp_Custom(Exp_Basic):
 
         mse_loss = nn.MSELoss()
         mae_loss = nn.L1Loss()
+        huber_loss = nn.HuberLoss()
         mse = AverageMeter()
         mae = AverageMeter()
+        huber = AverageMeter()
         self.model.eval()
         with torch.no_grad():
             for i, (batch_x, batch_y, batch_x_mark) in enumerate(test_loader):
@@ -236,10 +245,12 @@ class Exp_Custom(Exp_Basic):
 
                 mse.update(mse_loss(outputs, batch_y).item(), batch_x.size(0))
                 mae.update(mae_loss(outputs, batch_y).item(), batch_x.size(0))
+                huber.update(huber_loss(outputs, batch_y).item(), batch_x.size(0))
 
         mse = mse.avg
         mae = mae.avg
-        print('mse:{}, mae:{}'.format(mse, mae))
+        huber = huber.avg
+        print('mse:{}, mae:{}, huber:{}'.format(mse, mae, huber))
         return
 
     def predict(self, setting, pred_data, stride=1):
