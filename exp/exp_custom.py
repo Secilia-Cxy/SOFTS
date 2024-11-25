@@ -39,7 +39,7 @@ class Dataset_Custom(Dataset):
             self.data_stamp = data_stamp.transpose(1, 0)
         else:
             self.data_x = self.data.values
-            self.data_stamp = np.zeros((self.x.shape[0], 1))
+            self.data_stamp = np.zeros((self.data_x.shape[0], 1))
 
     def __getitem__(self, index):
         if self.mode != 'pred':
